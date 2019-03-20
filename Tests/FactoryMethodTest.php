@@ -16,21 +16,14 @@ foreach (glob("*.php") as $filename) {
 
 class FactoryMethodTest
 {
-    public function testCanCreateStdoutLogging()
+    /**
+     * Test factory method.
+     *
+     * @return void
+     */
+    public function test()
     {
-        $loggerFactory = new StdoutLoggerFactory();
-        return $loggerFactory->createLogger();
-    }
-
-    public function testCanCreateFileLogging()
-    {
-        $loggerFactory = new FileLoggerFactory(sys_get_temp_dir());
-        return $loggerFactory->createLogger();
+        new StdoutLoggerFactory();
+        new FileLoggerFactory(sys_get_temp_dir());
     }
 }
-
-$test = new FactoryMethodTest();
-print_r($test->testCanCreateFileLogging());
-echo "\n";
-print_r($test->testCanCreateStdoutLogging());
-echo "\n";
