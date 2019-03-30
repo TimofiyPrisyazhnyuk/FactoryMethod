@@ -1,19 +1,18 @@
 <?php
 
-namespace FactoryMethod\Tests;
+namespace Tests;
 
-use FactoryMethod\FileLoggerFactory;
-use FactoryMethod\StdoutLoggerFactory;
+use FileLoggerFactory;
+use StdoutLoggerFactory;
 
-require __DIR__ . "/../Logger.php";
-require __DIR__ . "/../LoggerFactory.php";
+spl_autoload_register(function ($class) {
+    include __DIR__ . '/../' . $class . '.php';
+});
 
-foreach (glob("*.php") as $filename) {
-    if (file_exists($file = __DIR__ . '/../' . $filename)) {
-        require_once $file;
-    }
-}
-
+/**
+ * Class FactoryMethodTest
+ * @package FactoryMethod\Tests
+ */
 class FactoryMethodTest
 {
     /**
@@ -23,7 +22,11 @@ class FactoryMethodTest
      */
     public function test()
     {
-        new StdoutLoggerFactory();
-        new FileLoggerFactory(sys_get_temp_dir());
+        echo (new StdoutLoggerFactory())->createLogger()->log('Log Errors');
+        // or use ..
+        (new FileLoggerFactory(sys_get_temp_dir()))->createLogger()->log('Log to tmp');
     }
 }
+
+// Run test
+(new FactoryMethodTest())->test();

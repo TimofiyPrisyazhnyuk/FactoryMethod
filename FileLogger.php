@@ -1,7 +1,8 @@
 <?php
 
-namespace FactoryMethod;
-
+/**
+ * Class FileLogger
+ */
 class FileLogger implements Logger
 {
     /**
@@ -9,11 +10,18 @@ class FileLogger implements Logger
      */
     private $filePath;
 
+    /**
+     * FileLogger constructor.
+     * @param string $filePath
+     */
     public function __construct(string $filePath)
     {
         $this->filePath = $filePath;
     }
 
+    /**
+     * @param string $message
+     */
     public function log(string $message)
     {
         file_put_contents($this->filePath, $message . PHP_EOL, FILE_APPEND);
